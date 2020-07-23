@@ -1,0 +1,34 @@
+.inputs_wrapper {
+  padding: 27px 0 27px 0;
+  width: 330px;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 2px solid #6bdcea;
+  display: flex;
+
+  & input + input {
+    margin-top: 10px;
+  }
+}
+
+.inputs_descr {
+  & span {
+    color: #6bdcea;
+    font-size: 24px;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+}
+.input {
+  width: 120px;
+  top: 10px;
+  right: 10px;
+  text-align: right;
+  padding: 5px;
+  border-radius: 3px;
+  border: 2px solid #6bdcea;
+}
+.red{
+  border: 2px solid red;
+  background-color: salmon;
+}
