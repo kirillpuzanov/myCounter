@@ -19,7 +19,6 @@ export const BtnCount = (props: BtnType) => {
                     disabled={editMessage || errorEditMessage}
             > {props.name}
             </button>
-
         </div>
     )
 }
