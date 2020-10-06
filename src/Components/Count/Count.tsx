@@ -9,8 +9,8 @@ type CountType = {
     incrCounter: () => void
     resCounter: () => void
     countNum: number
-    errorEditMessage: boolean
-    editMessage: boolean
+    errorInfoMessage: boolean
+    infoMessage: boolean
 }
 
 export function Count(props: CountType) {
@@ -20,24 +20,22 @@ export function Count(props: CountType) {
             <Counter countNum={props.countNum}
                      valueMin={props.valueMin}
                      valueMax={props.valueMax}
-                     editMessage={props.editMessage}
-                     errorEditMessage={props.errorEditMessage}
+                     infoMessage={props.infoMessage}
+                     errorInfoMessage={props.errorInfoMessage}
             />
             <div className={style.windowCount_inner}>
                 <BtnCount
                     onClickHandler={props.incrCounter}
                     name={'Inc'}
-                    editMessage={props.editMessage}
-                    errorEditMessage={props.errorEditMessage}
+                    infoMessage={props.infoMessage}
+                    errorInfoMessage={props.errorInfoMessage}
                 />
                 <BtnCount
                     name={'Reset'}
                     onClickHandler={props.resCounter}
-                    editMessage={props.editMessage}
-                    errorEditMessage={props.errorEditMessage}
+                    infoMessage={props.infoMessage}
+                    errorInfoMessage={props.errorInfoMessage}
                 /></div>
         </div>
     )
 }
-
-//

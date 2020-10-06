@@ -13,7 +13,6 @@ type InputsType = {
 
 export function Inputs(props: InputsType) {
 
-
     const changeInputMax = (e: ChangeEvent<HTMLInputElement>) => {
         props.setValueMax(Number(e.currentTarget.value))
     }

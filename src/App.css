@@ -3,6 +3,9 @@
 .App {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     background-color: #d8d8d8;
+    padding-top: 100px;
+    height: 100vh;
 }
 

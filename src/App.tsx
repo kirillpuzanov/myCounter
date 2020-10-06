@@ -14,35 +14,36 @@ function App() {
         max: number
         min: number
     }
+
 // Функция сохранения value из  inputs  в lS
-    function saveState(key: string, state: StateType) {
-        const stateAsString = JSON.stringify(state);
-        localStorage.setItem(key, stateAsString)
+    function setValueToLS(key: string, state: StateType) {
+        const convertedValue = JSON.stringify(state);
+        localStorage.setItem(key, convertedValue)
     }
 
 // Функция восстановления value  из lS/ проверка на наличие в lS данных
     function restoreState(key: string) {
-        const stateAsString = localStorage.getItem(key);
-        if (stateAsString !== null) {
-            let defaultState = JSON.parse(stateAsString)
-            lSValueMax = defaultState.max
-            lSValueMin = defaultState.min
+        const valueFromLS = localStorage.getItem(key);
+        if (valueFromLS !== null) {
+            let defaultValueForInput = JSON.parse(valueFromLS)
+            lSValueMax = defaultValueForInput.max
+            lSValueMin = defaultValueForInput.min
             return {lSValueMax, lSValueMin}
         }
     }
     restoreState('test')
 
 // изменение Value в инпутах окно настроек
-    let [valueMax, setValueMax] = useState(lSValueMax || 5  );
-    let [valueMin, setValueMin] = useState(lSValueMin || 0  );
+    let [valueMax, setValueMax] = useState(lSValueMax || 5);
+    let [valueMin, setValueMin] = useState(lSValueMin || 0);
 // число  в счетчике
     let [countNum, setCountNum] = useState(0);
 
 // сообщение на экране счетчика о вводе значений
-    let [editMessage, setEditMessage] = useState(false);
+    let [infoMessage, setInfoMessage] = useState(false);
 
 // сообщение на экране счетчика о вводе не корректных значений
-    let [errorEditMessage, setErrorEditMessage] = useState(false);
+    let [errorInfoMessage, setErrorInfoMessage] = useState(false);
 
     //   ошибка отдельно для инпутаMax
     let [errorMax, setErrorMax] = useState(false);
@@ -55,40 +56,41 @@ function App() {
 
     useEffect(() => {
         //для активации окна настроек
-        if (valueMax != 5 || valueMin != 0) {
-            setEditMessage(true)
+
+        if (valueMax !== 5 || valueMin !== 0) {
+            setInfoMessage(true)
             setDisBtn(false)
         }
         // проверки на ввод не кооректных значений в инпут ( общие )
         if ((valueMax === valueMin) || (valueMin < 0) || (valueMax < valueMin)) {
-            setErrorEditMessage(true)
-            setEditMessage(false)
+            setErrorInfoMessage(true)
+            setInfoMessage(false)
             setDisBtn(true)
-            // проверки на ввод не кооректных значений в конкретный инпут
-            if ((valueMin < 0) || (valueMax === valueMin)) {
-                setErrorMin(true)
-            } else {
-                setErrorMin(false)
-            }
-            // проверки на ввод не кооректных значений в конкретный инпут
-            if ((valueMax < valueMin) || (valueMax === valueMin)) {
-                setErrorMax(true)
-            } else {
-                setErrorMax(false)
-            }
+        }
+        // проверки на ввод не коректных значений в конкретный инпут Min
+        if ((valueMin < 0) || (valueMax === valueMin)) {
+            setErrorMin(true)
+        } else {
+            setErrorMin(false)
+        }
+        // проверки на ввод не коректных значений в конкретный инпут Max
+        if ((valueMax < valueMin) || (valueMax === valueMin)) {
+            setErrorMax(true)
         } else {
             setErrorMax(false)
-            setErrorMin(false)
-            setErrorEditMessage(false)
         }
     }, [valueMax, valueMin]);
 
+
+
 //применяем стартовые значения счетчика, скрываем информационные сообщения,выключаем кнопку set
     const setValue = (valueMax: number, valueMin: number) => {
+
         setCountNum(valueMin)
-        setEditMessage(false)
+        setInfoMessage(false)
+        errorInfoMessage && setErrorInfoMessage(false)
         setDisBtn(true)
-        saveState('test', {max: valueMax, min: valueMin})
+        setValueToLS('test', {max: valueMax, min: valueMin})
     };
 //Увеличение счетчика на 1 прикаждом клике на кнопку inc
     const incrCounter = () => {
@@ -96,8 +98,6 @@ function App() {
     };
     // сброс счетчика к стартовому значению
     const resCounter = () => setCountNum(valueMin);
-
-
 
 
     return (
@@ -118,8 +118,8 @@ function App() {
                 incrCounter={incrCounter}
                 resCounter={resCounter}
                 countNum={countNum}
-                errorEditMessage={errorEditMessage}
-                editMessage={editMessage}
+                errorInfoMessage={errorInfoMessage}
+                infoMessage={infoMessage}
             />
         </div>
     );
